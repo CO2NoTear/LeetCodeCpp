@@ -1,4 +1,3 @@
-#include <iostream>
 #include <queue>
 #include <string>
 #include <unordered_set>
@@ -22,17 +21,27 @@ public:
           continue;
         } else {
           queue_.push(make_pair(des, step + 1));
+          visited_.insert(des);
         }
       }
     }
   }
   int ladderLength(string beginWord, string endWord, vector<string> &wordList) {
     if (beginWord == endWord) {
-      return 0;
+      return 2;
     }
+    queue_.push(make_pair(beginWord, 1));
     word_list_ = unordered_set<string>(wordList.begin(), wordList.end());
-    for (auto word : word_list_) {
-      cout << word << ", ";
+    while (!queue_.empty()) {
+      auto [new_word, step] = queue_.front();
+      queue_.pop();
+
+      if (new_word == endWord) {
+        return step;
+      } else {
+        generateNewWordsToQueue(new_word, step);
+      }
     }
+    return 0;
   }
 };
