@@ -1,3 +1,4 @@
+#include <iostream>
 #include <queue>
 #include <string>
 #include <unordered_set>
@@ -26,5 +27,12 @@ public:
     }
   }
   int ladderLength(string beginWord, string endWord, vector<string> &wordList) {
+    if (beginWord == endWord) {
+      return 0;
+    }
+    word_list_ = unordered_set<string>(wordList.begin(), wordList.end());
+    for (auto word : word_list_) {
+      cout << word << ", ";
+    }
   }
 };
